@@ -160,3 +160,35 @@ document.addEventListener("DOMContentLoaded", () => {
         moveIndicator(currentActive);
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const studentImages = document.querySelectorAll(".card-img img");
+    const overlay = document.getElementById("photo-preview-overlay");
+    const previewFrame = document.getElementById("preview-frame");
+    const closeBtn = document.querySelector(".preview-close");
+
+    studentImages.forEach((img) => {
+        img.addEventListener("click", () => {
+            previewFrame.src = img.src;
+            overlay.classList.add("show");
+            document.body.style.overflow = "hidden";
+        });
+    });
+
+
+    function closePreview() {
+        overlay.classList.remove("show");
+        document.body.style.overflow = "auto";
+        setTimeout(() => {
+            previewFrame.src = "";
+        }, 300);
+    }
+
+    closeBtn.addEventListener("click", closePreview);
+
+    overlay.addEventListener("click", (e) => {
+        if (e.target !== previewFrame) {
+            closePreview();
+        }
+    });
+});
